@@ -1,0 +1,15 @@
+
+#IDEA
+.idea/
+
+#vscode
+.vscode/
+
+#acm source code without executable files 
+*.exe
+
+#cmake(acm codes don't need the cmake files)
+cmake-build-debug/
+CMakeLists.txt
+
+
