@@ -35,38 +35,29 @@ int main() {
         nodes[y - 1].p_num++;
     }
 
-    priority_queue<Node*, vector<Node*>, Compare> first;
-    priority_queue<Node*, vector<Node*>, Compare> second;
-
-    priority_queue<Node*, vector<Node*>, Compare> *q = &first;
-    priority_queue<Node*, vector<Node*>, Compare> *q2 = &second;
-    priority_queue<Node*, vector<Node*>, Compare> *tmp;
+    priority_queue<Node*, vector<Node*>, Compare> q;
 
 
     vector<Node*> result;
     for (int i = 0; i < n; ++i) {
         if (nodes[i].p_num == 0) {
-            q->push(&nodes[i]);
+            q.push(&nodes[i]);
         }
     }
 
-
-    while (!q->empty()) {
-        while (!q->empty()) {
-            for (auto & son : (q->top())->sons) {
-                son->p_num --;
-                if (son->p_num == 0) {
-                    q2->push(son);
-                }
+    while (!q.empty()) {
+        Node *tmp = q.top();
+        result.push_back(q.top());
+        q.pop();
+        for (auto & son : tmp->sons) {
+            son->p_num--;
+            if (son->p_num == 0) {
+                q.push(son);
             }
-            result.push_back(q->top());
-            q->pop();
         }
-
-        tmp = q;
-        q = q2;
-        q2 = tmp;
     }
+
+
 
     if (result.size() != n){
         cout << "impossible\n";
